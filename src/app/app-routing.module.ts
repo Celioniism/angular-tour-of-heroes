@@ -4,7 +4,8 @@ import { HomeComponent } from './pingleApp/home/home.component';
 import { GameComponent } from './pingleApp/game/game.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   {
     path: 'game',
     component: GameComponent,
