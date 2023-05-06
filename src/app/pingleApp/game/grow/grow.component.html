@@ -40,20 +40,25 @@
 
 </div>
 
-<div *ngIf="(gameStarted && choiceMade)" class="centerparent">
-    <div style="position: absolute;" [ngStyle]="{'left.%' : tomo_position[0]+tomo_text_position[0] , 'top.%' : tomo_position[1]-tomo_text_position[1]}">
+<div *ngIf="(gameStarted && choiceMade)" class="centerparent" style=" height:115%;">
+    <a (click)="interact()" class="btn btn-outline-success">start</a> <a (click)="stop()" class="btn btn-outline-danger">stop</a>
+    <div style="position: absolute;" [ngStyle]="{'left.%' : this.movement.tomo_position[0]+tomo_text_position[0] , 'top.%' : this.movement.tomo_position[1]-tomo_text_position[1]}">
         <div class="card tomo_text roll-in">
             <div *ngIf="beginSpeaking">
-                <div class="card-body typerwriter">
-                    <h4>{{currentMessage}}</h4>
+                <div style="width: 50%">
+
+                    <div class="card-body typerwriter" style="width:fit-content">
+                        <h4>{{currentMessage}}</h4>
+                    </div>
+
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="centerparent" style="width:100%; height:95%;">
-        <div style=" position: absolute;" class="tomo" [ngStyle]="{'left.%' : tomo_position[0] , 'top.%' : tomo_position[1]}">
-            <img class="tomo roll-in" src="../../../../assets/pegimages/grow/{{tomo_chosen}}.png">
+    <div class="centerparent" style="width:100%;">
+        <div style=" position: absolute;" class="tomo" [ngStyle]="{'left.%' : this.movement.tomo_position[0] , 'top.%' : this.movement.tomo_position[1]}">
+            <img class="tomo roll-in" id="tomo" src="../../../../assets/pegimages/grow/{{tomo_chosen}}.png">
         </div>
     </div>
 </div>

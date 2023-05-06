@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { MovementEngine } from './tomoComponents/TomoMovementEngine';
 @Component({
   selector: 'app-grow',
   templateUrl: './grow.component.html',
@@ -11,29 +11,34 @@ export class GrowComponent {
   pingle: boolean = false;
   silly: boolean = false;
   tomo_choices: string[] = ['Pegin', 'Pengette', 'Neko', 'Tonkatsu', 'Random'];
-  tomo_chosen: string = 'Pegin.png';
+  tomo_chosen: string = '';
 
-  startupMessages = {
-    Pegin: {
-      happy: ['pllbt (▴ = ▴)', 'fbbt fbbt  ⩍(︒ =︒ )⩍'],
-      neutral: ['pllbn (⬝  =  ⬝)', 'fpt... (⦁ = ⦁)'],
+  constructor(public movement: MovementEngine) {}
+
+  tomoTree = {
+    startupMessage: {
+      Pegin: {
+        happy: ['pllbt (▴ = ▴)', 'fbbt fbbt  ⩍(︒ =︒ )⩍'],
+        neutral: ['pllbn (⬝  =  ⬝)', 'fpt... (⦁ = ⦁)'],
+      },
+      Pengette: { happy: ['', ''], neutral: ['', ''] },
+      Neko: { happy: ['', ''], neutral: ['', ''] },
+      Tonkatsu: { happy: ['', ''], neutral: ['', ''] },
     },
-    Pengette: { happy: ['', ''], neutral: ['', ''] },
-    Neko: { happy: ['', ''], neutral: ['', ''] },
-    Tonkatsu: { happy: ['', ''], neutral: ['', ''] },
+
+    tomoEmotionPictures: {
+      Pegin: { happy: ['', ''], neutral: ['', ''] },
+      Pengette: { happy: ['', ''], neutral: ['', ''] },
+      Neko: { happy: ['', ''], neutral: ['', ''] },
+      Tonkatsu: { happy: ['', ''], neutral: ['', ''] },
+    },
+    tomoStates: ['happy', 'sad', 'tired', 'neutral', 'hungry', 'refreshed'],
   };
 
-  startupMessageEmoticons = {
-    Pegin: { happy: ['', ''], neutral: ['', ''] },
-    Pengette: { happy: ['', ''], neutral: ['', ''] },
-    Neko: { happy: ['', ''], neutral: ['', ''] },
-    Tonkatsu: { happy: ['', ''], neutral: ['', ''] },
-  };
+  currentMessage: string = '';
+  currentState: string;
+  currentEmoticon: string = '';
 
-  currentMessage: string = ''; // 32 char string max
-  currentEmoticon: string = ''; // location of emoticon png
-
-  tomo_position: number[] = [45, 45];
   tomo_text_position: number[] = [7, 10];
 
   gameStarted: boolean = false;
@@ -49,37 +54,78 @@ export class GrowComponent {
 
   choose(name: string) {
     console.log(name);
-    this.tomo_chosen = name;
+    if (name === 'Random') {
+      this.tomo_chosen = this.tomo_choices[this.randomState4() - 1];
+    } else {
+      this.tomo_chosen = name;
+    }
+
     this.choiceMade = true;
     this.getStartMessage();
     this.delay(3000).then((any) => {
+      this.setAnimation();
       this.beginSpeaking = true;
     });
   }
 
+  stop() {
+    this.movement.stop();
+  }
+
+  interact() {
+    this.movement.start();
+  }
+
   getStartMessage() {
     let state = this.randomState10();
-    console.log(state);
-    console.log(this.tomo_chosen);
+
     if (state % 2 == 1) {
+      this.currentState = 'happy';
       this.currentMessage =
-        this.startupMessages[this.tomo_chosen].happy[this.randomState4() % 2];
+        this.tomoTree.startupMessage[this.tomo_chosen].happy[
+          this.randomState4() % 2
+        ];
+
       return;
     }
+    this.currentState = 'neutral';
     this.currentMessage =
-      this.startupMessages[this.tomo_chosen].neutral[this.randomState4() % 2];
+      this.tomoTree.startupMessage[this.tomo_chosen].neutral[
+        this.randomState4() % 2
+      ];
   }
 
   randomState10(): number {
-    return Math.floor(Math.random() * 10);
+    return Math.floor(Math.random() * 10 + 1);
   }
 
   randomState4(): number {
-    return Math.floor(Math.random() * 10);
+    return Math.floor(Math.random() * 4 + 1);
   }
   async delay(ms: number) {
     await new Promise<void>((resolve) => setTimeout(() => resolve(), ms)).then(
       () => console.log()
     );
   }
+
+  setAnimation(state?: string) {
+    if (state == undefined) {
+      var state = this.currentState;
+    }
+
+    if (state == 'happy') {
+      var tomo = document.getElementById('tomo');
+      tomo.classList.remove('roll-in');
+      tomo.classList.add('bounce2');
+      return;
+    }
+    if (state == 'neutral') {
+      var tomo = document.getElementById('tomo');
+      tomo.classList.remove('roll-in');
+      tomo.classList.add('shake');
+      return;
+    }
+  }
+
+  feed(food: string) {}
 }

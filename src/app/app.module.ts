@@ -8,6 +8,7 @@ import { GameComponent } from './pingleApp/game/game.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { GrowComponent } from './pingleApp/game/grow/grow.component';
+import { MovementEngine } from './pingleApp/game/grow/tomoComponents/TomoMovementEngine';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { GrowComponent } from './pingleApp/game/grow/grow.component';
     GrowComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
-  providers: [],
+  providers: [MovementEngine],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
