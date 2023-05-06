@@ -7,6 +7,7 @@ import { HomeComponent } from './pingleApp/home/home.component';
 import { GameComponent } from './pingleApp/game/game.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { GrowComponent } from './pingleApp/game/grow/grow.component';
 
 @NgModule({
   declarations: [
@@ -14,13 +15,11 @@ import { FooterComponent } from './shared/footer/footer.component';
     HomeComponent,
     GameComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    GrowComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

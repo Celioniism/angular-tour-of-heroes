@@ -1,0 +1,36 @@
+.centerparent {
+  display: block;
+  align-items: center;
+  justify-content: right;
+}
+
+.pegimage {
+  background-image: url("../../../assets/pegimages/angris.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  min-height: 300px;
+  min-width: 300px;
+}
+
+.contained {
+  background-image: url("../../../assets/pegimages/glitch.gif");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 100%;
+  opacity: 30%;
+  height: 100%;
+  width: 100%;
+}
+
+.whiteStrip {
+  background-color: rgba(156, 156, 156, 0.645);
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 400px;
+  width: 100%;
+}
+
+.btn {
+  background-color: rgba(120, 120, 120, 0.586);
+}
