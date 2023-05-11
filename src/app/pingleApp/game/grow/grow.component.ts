@@ -11,9 +11,10 @@ export class GrowComponent {
   pingle: boolean = false;
   silly: boolean = false;
   tomo_choices: string[] = ['Pegin', 'Pengette', 'Neko', 'Tonkatsu', 'Random'];
-  tomo_chosen: string = '';
 
   constructor(public movement: MovementEngine) {}
+
+  tomo_chosen = '';
 
   tomoTree = {
     startupMessage: {
@@ -55,16 +56,21 @@ export class GrowComponent {
   choose(name: string) {
     console.log(name);
     if (name === 'Random') {
-      this.tomo_chosen = this.tomo_choices[this.randomState4() - 1];
+      this.movement.tomo_presented = this.tomo_choices[this.randomState4() - 1];
+      this.tomo_chosen = this.movement.tomo_presented;
+      this.movement.tomo_presented =
+        this.movement.tomo_presented + '/' + this.movement.tomo_presented;
     } else {
+      this.movement.tomo_presented = name + '/' + name;
       this.tomo_chosen = name;
     }
 
     this.choiceMade = true;
     this.getStartMessage();
-    this.delay(3000).then((any) => {
-      this.setAnimation();
+
+    this.delay(2400).then((any) => {
       this.beginSpeaking = true;
+      this.setAnimation();
     });
   }
 

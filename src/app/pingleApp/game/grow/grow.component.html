@@ -1,6 +1,7 @@
+<html lang="en">
 <div *ngIf="!gameStarted">
 
-    <div class="" style=" margin-top:400px; margin-bottom:400px">
+    <div class="" style=" margin-top:400px; margin-bottom:400px;">
         <div style="width:100%; display:inline-block">
             <div class="row">
 
@@ -16,7 +17,7 @@
 </div>
 
 <div class="choices" *ngIf="gameStarted && !choiceMade" style="display:inline; text-align: center; width:100%">
-    <div class="centerparent" style="margin-top:300px; margin-bottom: 400px">
+    <div class="centerparent" style="margin-top:350px; margin-bottom: 350px">
         <div style=" display:inline-block; left:50%">
 
             <div class="row">
@@ -30,7 +31,8 @@
                         <div class="card-body">
                             <a style="width:fit-content" class="btn" (click)="choose(name)">{{name}}</a>
                             <br>
-                            <img class="tomo-intro" src="../../../../assets/pegimages/grow/{{name}}.png">
+
+                            <img class="tomo-intro" src="../../../../assets/pegimages/grow/{{name}}/{{name}}.png">
                         </div>
                     </div>
                 </div>
@@ -40,7 +42,7 @@
 
 </div>
 
-<div *ngIf="(gameStarted && choiceMade)" class="centerparent" style=" height:115%;">
+<div *ngIf="(gameStarted && choiceMade)" class="centerparent" style=" height:90%;">
     <a (click)="interact()" class="btn btn-outline-success">start</a> <a (click)="stop()" class="btn btn-outline-danger">stop</a>
     <div style="position: absolute;" [ngStyle]="{'left.%' : this.movement.tomo_position[0]+tomo_text_position[0] , 'top.%' : this.movement.tomo_position[1]-tomo_text_position[1]}">
         <div class="card tomo_text roll-in">
@@ -58,7 +60,9 @@
     </div>
     <div class="centerparent" style="width:100%;">
         <div style=" position: absolute;" class="tomo" [ngStyle]="{'left.%' : this.movement.tomo_position[0] , 'top.%' : this.movement.tomo_position[1]}">
-            <img class="tomo roll-in" id="tomo" src="../../../../assets/pegimages/grow/{{tomo_chosen}}.png">
+            <img class="tomo roll-in" id="tomo" src="../../../../assets/pegimages/grow/{{this.movement.tomo_presented}}.png">
         </div>
     </div>
 </div>
+
+</html>
